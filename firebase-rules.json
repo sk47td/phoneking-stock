@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "phoneking": {
+      ".read": "auth != null",
+      "data": {
+        ".read": "auth != null",
+        ".write": "auth != null && (auth.token.email === 'phonekingkd@gmail.com' || root.child('phoneking/users').child(auth.uid).child('role').val() === 'manager')"
+      },
+      "users": {
+        "$uid": {
+          ".read": "auth != null && (auth.uid === $uid || auth.token.email === 'phonekingkd@gmail.com')",
+          ".write": "auth != null && auth.token.email === 'phonekingkd@gmail.com'"
+        }
+      }
+    }
+  }
+}
