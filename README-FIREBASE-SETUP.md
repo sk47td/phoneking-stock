@@ -1,0 +1,33 @@
+# PhoneKing Stock Manager — Firebase setup
+
+The web app is configured for Firebase project `phonekingstock` and manager email `phonekingkd@gmail.com`.
+
+## 1. Authentication
+1. Firebase Console → Build → Authentication → Sign-in method → enable **Email/Password**.
+2. Create the manager account with `phonekingkd@gmail.com` and your chosen password.
+3. Staff accounts can be created directly from PhoneKing → Staff Management. The app creates the Firebase Authentication user and stores the selected access level.
+
+## 2. Realtime Database
+Create Realtime Database in Locked mode, then open **Rules** and replace the rules with `firebase-rules.json` from this package. Publish the rules.
+
+The rules enforce:
+- Manager email: full access.
+- Staff + `active:true` + `access:'view'`: read-only inventory access.
+- Staff + `active:true` + `access:'full'`: read/write inventory access.
+- Removed staff (`active:false`): cannot read or write inventory through these rules.
+- Staff records can only be changed by the manager.
+- Audit history can be read by Manager and Full Access users; new Full Access audit entries must carry the authenticated user's UID.
+
+## 3. 30-day history
+PhoneKing displays audit history from the last 30 days and records the acting user's name/email, action, item, details and timestamp. Manager sessions prune older audit records when history is loaded.
+
+## 4. Staff removal
+Removing a staff member sets `active:false`. Their Firebase Authentication account is not deleted by the browser-only app, but the PhoneKing access is revoked immediately and the Firebase database rules deny inventory access. Previous audit records remain.
+
+## 5. Run the app
+Host the folder on a web server such as GitHub Pages, Netlify or Firebase Hosting. Do not open `index.html` directly from `file://`.
+
+## 6. New model recommendations
+The dashboard contains a review list of recent India launches as a convenience. It is a seeded list, not a live feed. Verify current local availability before ordering covers.
+
+Never share Firebase passwords, OTPs, recovery codes or service-account private keys.
