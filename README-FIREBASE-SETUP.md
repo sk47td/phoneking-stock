@@ -31,23 +31,3 @@ Host the folder on a web server such as GitHub Pages, Netlify or Firebase Hostin
 The dashboard contains a review list of recent India launches as a convenience. It is a seeded list, not a live feed. Verify current local availability before ordering covers.
 
 Never share Firebase passwords, OTPs, recovery codes or service-account private keys.
-
-## IMPORTANT: Full-access staff write fix
-The included `firebase-rules.json` explicitly allows authenticated staff accounts to write `/phoneking/data` when their `/phoneking/users/<uid>` record has:
-- `role: "staff"`
-- `active: true`
-- `access: "full"`
-
-Firebase Realtime Database rules are enforced on Firebase's servers; placing the rules file in GitHub does not publish them automatically.
-
-### Publish the rules from Firebase Console
-1. Open Firebase Console → Realtime Database → Rules.
-2. Replace the existing rules with the contents of `firebase-rules.json`.
-3. Click **Publish**.
-4. Sign in again as a Full Access staff user and test Add/Edit/Delete.
-
-### Optional Firebase CLI deployment
-From this project folder, after installing/logging into the Firebase CLI:
-`firebase deploy --only database`
-
-The included `firebase.json` points the CLI to `firebase-rules.json`.
