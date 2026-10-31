@@ -1,4 +1,4 @@
-const CACHE = 'pkgc-manager-shell-v1';
+const CACHE = 'pkgc-manager-shell-v2-export-fix';
 const SHELL = [
   './',
   './index.html',
